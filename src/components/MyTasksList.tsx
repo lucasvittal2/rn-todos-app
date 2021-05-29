@@ -27,19 +27,24 @@ export function MyTasksList({ tasks, onLongPress, onPress }: MyTasksListProps) {
       renderItem={({ item, index }) => {
         return (
           <TouchableOpacity
+            style = {item.done?  styles.taskButtonDone  : styles.taskButton } 
             testID={`button-${index}`}
             activeOpacity={0.7}
-            //TODO - use onPress, onLongPress and style props
+            onPress = {() => onPress(item.id)}
+            onLongPress = {() => onLongPress(item.id)}
           >
-            <View 
+            <View
               testID={`marker-${index}`}
+              style = {item.done?  styles.taskMarkerDone  : styles.taskMarker } 
               //TODO - use style prop 
             />
-            <Text 
-              //TODO - use style prop
-            >
-              {item.title}
-            </Text>
+            <View>
+              <Text 
+                style ={item.done?  styles.taskTextDone  : styles.taskText}
+              >
+                {item.title}
+              </Text>
+            </View>
           </TouchableOpacity>
         )
       }}
@@ -80,6 +85,7 @@ const styles = StyleSheet.create({
   },
   taskText: {
     color: '#3D3D4D',
+    fontSize:20
   },
   taskButtonDone: {
     flex: 1,
@@ -100,6 +106,7 @@ const styles = StyleSheet.create({
   },
   taskTextDone: {
     color: '#A09CB1',
-    textDecorationLine: 'line-through'
+    textDecorationLine: 'line-through',
+    fontSize:20
   }
 })

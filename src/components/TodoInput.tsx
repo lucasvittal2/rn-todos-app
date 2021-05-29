@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Image, Platform, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
+import { Image, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 import checkIcon from '../assets/icons/Check.png';
 
@@ -9,9 +9,16 @@ interface TodoInputProps {
 
 export function TodoInput({ addTask }: TodoInputProps) {
   // const [task, setTask] = useState('');
-
+  const [inputTask, setInputTask] = useState('');
   function handleAddNewTask() {
     //TODO - Call addTask and clean input value 
+  console.log(inputTask);
+  if(inputTask != ''){
+    addTask(inputTask);
+    
+  }
+    
+    
   }
 
   return (
@@ -20,16 +27,22 @@ export function TodoInput({ addTask }: TodoInputProps) {
         style={styles.input} 
         placeholder="Adicionar novo todo..."
         returnKeyType="send"
+        onChangeText = {setInputTask}
+        onSubmitEditing= {()=> handleAddNewTask() }
+       
         //TODO - use value, onChangeText and onSubmitEditing props
       />
+      
       <TouchableOpacity
         testID="add-new-task-button"
         activeOpacity={0.7}
         style={styles.addButton}
+        onPress = {  handleAddNewTask }
         //TODO - onPress prop
       >
         <Image source={checkIcon} />
       </TouchableOpacity>
+      
     </View>
   )
 }

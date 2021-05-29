@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { Button, Platform, StyleSheet, Text, Touchable, TouchableOpacity, View } from 'react-native';
 
 import { Header } from '../components/Header';
+import { HeaderIOS } from '../components/Header.ios';
 import { MyTasksList } from '../components/MyTasksList';
 import { TodoInput } from '../components/TodoInput';
 
@@ -11,31 +13,56 @@ interface Task {
 }
 
 export function Home() {
-  // const [tasks, setTasks] = useState<Task[]>([]);
+   const [tasks, setTasks] = useState<Task[]>([]);
+   
 
   function handleAddTask(newTaskTitle: string) {
-    //TODO - add new task if it's not empty
+    console.log(newTaskTitle);
+    const newTask: Task = {id: new Date().getSeconds(), title: newTaskTitle, done:false }
+    setTasks(oldState => [...oldState, newTask]);
+    console.log(tasks);
+   
   }
 
   function handleMarkTaskAsDone(id: number) {
-    //TODO - mark task as done if exists
+    const aux = tasks;
+    aux.forEach(task =>{
+      if(task.id === id){
+        task.done =  !task.done;
+      }
+    });
+    setTasks([...aux]);
   }
 
   function handleRemoveTask(id: number) {
-    //TODO - remove task from state
+    
+    
+    setTasks(tasks.filter(task=> task.id !== id));
+    console.log(tasks);
+
+    
   }
-
+ 
   return (
-    <>
-      <Header />
+  
+    <View style = {styles.container}>
+        {Platform.OS =='ios'? <HeaderIOS/> :<Header/>}
+        <TodoInput addTask = { handleAddTask }/>
+        <MyTasksList
+        tasks ={tasks}
+        onPress ={ handleMarkTaskAsDone }
+        onLongPress={ handleRemoveTask }
+        />
+      
 
-      <TodoInput addTask={handleAddTask} />
-
-      <MyTasksList 
-        tasks={tasks} 
-        onPress={handleMarkTaskAsDone} 
-        onLongPress={handleRemoveTask} 
-      />
-    </>
+    </View>
   )
-}
+};
+const styles = StyleSheet.create({
+  container:{
+    justifyContent:'flex-start',
+    width:'100%',
+    height:'100%'
+   
+  }
+});

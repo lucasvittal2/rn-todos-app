@@ -84,11 +84,11 @@ describe('Home', () => {
     
     fireEvent.changeText(inputElement, 'Segunda tarefa');
     fireEvent(inputElement, 'submitEditing');
-
+    console.log(getByText('Primeira tarefa'));
     const firstTask = getByText('Primeira tarefa');
-
+    
     fireEvent(firstTask, 'longPress');
-
+    
     expect(queryByText('Primeira tarefa')).toBeNull();
     getByText('Segunda tarefa');
   });
