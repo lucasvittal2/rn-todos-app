@@ -17,10 +17,9 @@ export function Home() {
    
 
   function handleAddTask(newTaskTitle: string) {
-    console.log(newTaskTitle);
-    const newTask: Task = {id: new Date().getSeconds(), title: newTaskTitle, done:false }
+    const newTask: Task = {id: new Date().getTime(), title: newTaskTitle, done:false }
     setTasks(oldState => [...oldState, newTask]);
-    console.log(tasks);
+    
    
   }
 
@@ -37,8 +36,8 @@ export function Home() {
   function handleRemoveTask(id: number) {
     
     
-    setTasks(tasks.filter(task=> task.id !== id));
-    console.log(tasks);
+    setTasks(oldState => oldState.filter(task => task.id !== id));
+    
 
     
   }
@@ -47,7 +46,7 @@ export function Home() {
   
     <View style = {styles.container}>
         {Platform.OS =='ios'? <HeaderIOS/> :<Header/>}
-        <TodoInput addTask = { handleAddTask }/>
+        <TodoInput addTask = { handleAddTask } />
         <MyTasksList
         tasks ={tasks}
         onPress ={ handleMarkTaskAsDone }

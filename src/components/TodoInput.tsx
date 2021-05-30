@@ -8,13 +8,13 @@ interface TodoInputProps {
 }
 
 export function TodoInput({ addTask }: TodoInputProps) {
-  // const [task, setTask] = useState('');
   const [inputTask, setInputTask] = useState('');
   function handleAddNewTask() {
     //TODO - Call addTask and clean input value 
-  console.log(inputTask);
+  
   if(inputTask != ''){
     addTask(inputTask);
+    setInputTask('');
     
   }
     
@@ -28,7 +28,8 @@ export function TodoInput({ addTask }: TodoInputProps) {
         placeholder="Adicionar novo todo..."
         returnKeyType="send"
         onChangeText = {setInputTask}
-        onSubmitEditing= {()=> handleAddNewTask() }
+        value = { inputTask }
+        onSubmitEditing= { handleAddNewTask }
        
         //TODO - use value, onChangeText and onSubmitEditing props
       />
