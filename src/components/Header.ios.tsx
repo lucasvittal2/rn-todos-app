@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
 export function HeaderIOS() {
   return (
     <SafeAreaView style={styles.container}>
+      
       <View style={styles.header}>
         <Text style={styles.headerText}>to.</Text>
         <Text style={[styles.headerText, { fontFamily: 'Poppins-SemiBold' }]}>do</Text>
